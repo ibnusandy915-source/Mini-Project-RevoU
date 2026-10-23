@@ -1,0 +1,29 @@
+{
+  "name": "mini-project-revou",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:ui": "vitest --ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibnusandy915-source/Mini-Project-RevoU.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ibnusandy915-source/Mini-Project-RevoU/issues"
+  },
+  "homepage": "https://github.com/ibnusandy915-source/Mini-Project-RevoU#readme",
+  "devDependencies": {
+    "@testing-library/dom": "10.4.2",
+    "@vitest/ui": "3.2.7",
+    "fast-check": "4.10.2",
+    "jsdom": "26.1.0",
+    "vitest": "3.2.7"
+  }
+}

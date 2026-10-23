@@ -1,0 +1,588 @@
+/* =============================================================================
+   Productivity Dashboard — Main Stylesheet
+   File: css/style.css
+   Description: All styling for the dashboard, including theme variables,
+                layout, widget styles, and responsive breakpoints.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   1. CSS Custom Properties — Theme Variables
+   --------------------------------------------------------------------------- */
+
+:root {
+  --color-bg:              #f5f5f5;
+  --color-surface:         #ffffff;
+  --color-primary:         #6c3fc5;
+  --color-primary-dark:    #5a33a8;
+  --color-text:            #1a1a2e;
+  --color-text-muted:      #555577;
+  --color-border:          #e0daf5;
+  --color-error:           #c0392b;
+  --color-success:         #27ae60;
+  --color-btn-danger:      #e74c3c;
+  --color-btn-danger-hover:#c0392b;
+  --shadow:                0 2px 12px rgba(108, 63, 197, 0.10);
+  --radius:                12px;
+}
+
+[data-theme="dark"] {
+  --color-bg:           #1a1a2e;
+  --color-surface:      #16213e;
+  --color-primary:      #9b73e8;
+  --color-primary-dark: #7c53cc;
+  --color-text:         #e8e4f5;
+  --color-text-muted:   #a89ec9;
+  --color-border:       #2d2b4e;
+  --color-error:        #e74c3c;
+  --shadow:             0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------------------------------------------------------------------------
+   2. Reset & Base
+   --------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ---------------------------------------------------------------------------
+   3. Layout
+   --------------------------------------------------------------------------- */
+
+.app-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
+  background: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+.dashboard {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dashboard__middle-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Responsive: stack at ≤768px */
+@media (max-width: 768px) {
+  .dashboard__middle-row {
+    grid-template-columns: 1fr;
+  }
+  .app-header {
+    padding: 0.75rem 1rem;
+  }
+  .dashboard {
+    padding: 1rem;
+    gap: 1rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   4. Widget Card Base
+   --------------------------------------------------------------------------- */
+
+.widget {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--color-border);
+}
+
+.widget__title {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+/* ---------------------------------------------------------------------------
+   5. Greeting Panel
+   --------------------------------------------------------------------------- */
+
+.widget--greeting {
+  text-align: center;
+  padding: 2rem;
+}
+
+.greeting__time {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.greeting__date {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  margin: 0.25rem 0 0.75rem;
+}
+
+.greeting__message {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.greeting__name-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.25rem;
+}
+
+/* ---------------------------------------------------------------------------
+   6. Buttons — Shared
+   --------------------------------------------------------------------------- */
+
+.btn,
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background 0.2s, opacity 0.2s, box-shadow 0.2s;
+}
+
+.btn:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+   7. Theme Toggle Button
+   --------------------------------------------------------------------------- */
+
+#theme-toggle {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+#theme-toggle:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+/* ---------------------------------------------------------------------------
+   8. Inputs — Shared
+   --------------------------------------------------------------------------- */
+
+input[type="text"],
+input[type="number"],
+input[type="url"] {
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="url"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(108, 63, 197, 0.15);
+}
+
+/* ---------------------------------------------------------------------------
+   9. Error Messages
+   --------------------------------------------------------------------------- */
+
+.error-msg {
+  color: var(--color-error);
+  font-size: 0.8rem;
+  min-height: 1.1em;
+  width: 100%;
+}
+
+.error-banner {
+  background: #fdecea;
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+[data-theme="dark"] .error-banner {
+  background: #3d1c1a;
+}
+
+/* ---------------------------------------------------------------------------
+   10. Focus Timer Widget
+   --------------------------------------------------------------------------- */
+
+.widget--timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.timer__display {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer__controls {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.timer__controls button {
+  background: var(--color-primary);
+  color: #fff;
+  min-width: 70px;
+}
+
+.timer__controls button:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+#timer-reset-btn {
+  background: var(--color-text-muted);
+}
+
+#timer-reset-btn:hover:not(:disabled) {
+  background: var(--color-text);
+}
+
+.timer__duration-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.timer__duration-form input {
+  width: 70px;
+}
+
+.timer__duration-form button {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+
+.timer__duration-form button:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   11. Todo List Widget
+   --------------------------------------------------------------------------- */
+
+.widget--todo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.todo__add-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.todo__add-form input {
+  flex: 1;
+}
+
+#todo-add-btn {
+  background: var(--color-primary);
+  color: #fff;
+  white-space: nowrap;
+}
+
+#todo-add-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.todo__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.todo__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-bg);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.todo__checkbox {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.todo__task-text {
+  flex: 1;
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.todo__task-text--done {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.todo__edit-input {
+  flex: 1;
+}
+
+.btn--edit {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.btn--edit:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn--save {
+  background: var(--color-success);
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.btn--save:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.btn--cancel {
+  background: var(--color-text-muted);
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.btn--cancel:hover:not(:disabled) {
+  background: var(--color-text);
+}
+
+.btn--delete {
+  background: var(--color-btn-danger);
+  color: #fff;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+  min-width: 28px;
+}
+
+.btn--delete:hover:not(:disabled) {
+  background: var(--color-btn-danger-hover);
+}
+
+/* ---------------------------------------------------------------------------
+   12. Quick Links Widget
+   --------------------------------------------------------------------------- */
+
+.widget--links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.links__add-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  gap: 0.5rem;
+  align-items: start;
+}
+
+/* Labels are accessible but visually hidden; placeholders serve as visual hints */
+.links__add-form label {
+  display: none;
+}
+
+#link-error {
+  grid-column: 1 / -1;
+}
+
+#link-add-btn {
+  background: var(--color-primary);
+  color: #fff;
+  white-space: nowrap;
+  align-self: end;
+}
+
+#link-add-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.links__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.links__item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.btn--link {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn--link:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+/* Responsive: stack link form on small screens */
+@media (max-width: 480px) {
+  .links__add-form {
+    grid-template-columns: 1fr;
+  }
+  #link-add-btn {
+    align-self: stretch;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   13. Notification / Toast
+   --------------------------------------------------------------------------- */
+
+.notification {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(108, 63, 197, 0.4);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.notification--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---------------------------------------------------------------------------
+   14. Greeting Name Form Controls
+   --------------------------------------------------------------------------- */
+
+.greeting__name-form label {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.greeting__name-form input {
+  width: 200px;
+}
+
+#name-save-btn {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+#name-save-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+#name-clear-btn {
+  background: var(--color-text-muted);
+  color: #fff;
+}
+
+#name-clear-btn:hover:not(:disabled) {
+  background: var(--color-text);
+}
+
+/* ---------------------------------------------------------------------------
+   15. Scrollbar Styling (optional, for webkit browsers)
+   --------------------------------------------------------------------------- */
+
+.todo__list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.todo__list::-webkit-scrollbar-track {
+  background: var(--color-bg);
+  border-radius: 3px;
+}
+
+.todo__list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.todo__list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}

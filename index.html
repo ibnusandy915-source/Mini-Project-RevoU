@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Productivity Dashboard</title>
+
+    <!-- Early theme apply: runs synchronously before paint to prevent flash of wrong theme -->
+    <script>
+      (function () {
+        var stored = null;
+        try { stored = localStorage.getItem('pd_theme'); } catch (e) {}
+        var theme = (stored === 'dark' || stored === 'light') ? stored : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+
+    <!-- Theme Toggle -->
+    <header class="app-header">
+      <button id="theme-toggle" aria-label="Toggle light/dark mode">
+        Toggle Theme
+      </button>
+    </header>
+
+    <main class="dashboard">
+
+      <!-- Greeting Panel -->
+      <section id="greeting-panel" class="widget widget--greeting" aria-label="Greeting Panel">
+        <div id="time-display" class="greeting__time" aria-live="polite"></div>
+        <div id="date-display" class="greeting__date"></div>
+        <div id="greeting-text" class="greeting__message" aria-live="polite"></div>
+        <div class="greeting__name-form">
+          <label for="name-input">Your Name</label>
+          <input
+            type="text"
+            id="name-input"
+            maxlength="50"
+            placeholder="Enter your name"
+            aria-describedby="name-error"
+          />
+          <button id="name-save-btn" type="button">Save</button>
+          <button id="name-clear-btn" type="button">Clear</button>
+          <span id="name-error" class="error-msg" role="alert" aria-live="assertive"></span>
+        </div>
+      </section>
+
+      <!-- Middle row: Focus Timer + Todo List -->
+      <div class="dashboard__middle-row">
+
+        <!-- Focus Timer Widget -->
+        <section id="focus-timer" class="widget widget--timer" aria-label="Focus Timer">
+          <h2 class="widget__title">Focus Timer</h2>
+          <div id="timer-display" class="timer__display" aria-live="polite" aria-atomic="true">25:00</div>
+          <div class="timer__controls">
+            <button id="timer-start-btn" type="button">Start</button>
+            <button id="timer-stop-btn" type="button" disabled>Stop</button>
+            <button id="timer-reset-btn" type="button">Reset</button>
+          </div>
+          <div class="timer__duration-form">
+            <label for="duration-input">Duration (minutes)</label>
+            <input
+              type="number"
+              id="duration-input"
+              min="1"
+              max="120"
+              placeholder="25"
+              aria-describedby="duration-error"
+            />
+            <button id="duration-save-btn" type="button">Set</button>
+            <span id="duration-error" class="error-msg" role="alert" aria-live="assertive"></span>
+          </div>
+        </section>
+
+        <!-- Todo List Widget -->
+        <section id="todo-list" class="widget widget--todo" aria-label="To-Do List">
+          <h2 class="widget__title">To-Do List</h2>
+          <div class="todo__add-form">
+            <label for="todo-input">New Task</label>
+            <input
+              type="text"
+              id="todo-input"
+              maxlength="200"
+              placeholder="Add a task…"
+              aria-describedby="todo-error"
+            />
+            <button id="todo-add-btn" type="button">Add</button>
+            <span id="todo-error" class="error-msg" role="alert" aria-live="assertive"></span>
+          </div>
+          <ul id="todo-items" class="todo__list" aria-label="Task list"></ul>
+          <div id="todo-storage-error" class="error-banner" role="alert" aria-live="assertive" hidden></div>
+        </section>
+
+      </div><!-- /.dashboard__middle-row -->
+
+      <!-- Quick Links Panel -->
+      <section id="quick-links" class="widget widget--links" aria-label="Quick Links">
+        <h2 class="widget__title">Quick Links</h2>
+        <div class="links__add-form">
+          <label for="link-label-input">Label</label>
+          <input
+            type="text"
+            id="link-label-input"
+            maxlength="30"
+            placeholder="e.g. GitHub"
+            aria-describedby="link-error"
+          />
+          <label for="link-url-input">URL</label>
+          <input
+            type="url"
+            id="link-url-input"
+            maxlength="2048"
+            placeholder="https://example.com"
+            aria-describedby="link-error"
+          />
+          <button id="link-add-btn" type="button">Add Link</button>
+          <span id="link-error" class="error-msg" role="alert" aria-live="assertive"></span>
+        </div>
+        <div id="links-container" class="links__container" role="list" aria-label="Saved links"></div>
+      </section>
+
+    </main><!-- /.dashboard -->
+
+    <!-- Notification / Toast -->
+    <div id="notification" class="notification" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+  </body>
+</html>
